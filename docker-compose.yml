@@ -1,9 +1,22 @@
-version: "3.9"
-
+version: '2'
 services:
-  adminer:
-    image: adminer
-    container_name: web
-    restart: always
+  web:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/shoppe-clone-react-ts/server
+      - /shoppe-clone-react-ts/server/node-modules
     ports:
-      - "80:8080"
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      DATABASE_URL: mongodb+srv://testBoy:hieu123@cluster0.ydx2s.mongodb.net/shopee-clone?retryWrites=true&w=majority
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '5000:5000'
+    environment:
+      - MONGO_INITDB_DATABASE=shopee-clone
+      - MONGO_INITDB_ROOT_USERNAME=testBoy
+      - MONGO_INITDB_ROOT_PASSWORD=hieu123
