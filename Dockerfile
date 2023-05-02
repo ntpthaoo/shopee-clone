@@ -1,5 +1,11 @@
 FROM node:7.7.2-alpine
-WORKDIR /shoppe-clone-react-ts/server
-COPY package.json .
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY /server/package.json .
+
 RUN npm install --quiet
 COPY . .
